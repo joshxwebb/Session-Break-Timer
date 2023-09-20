@@ -1,47 +1,130 @@
 body{
-    background-color: #FFDCD9;
+  background: #474C66;
+  place-content: center;
+  font-family: Ubuntu;
 }
-.main-title{
-    text-align: center;
-    margin-top: 1em;
-    font-size: 64px;
-    color: #AD291D;
-  }
-  .timer{
-    display: grid;
-    justify-content: center;
-    text-align: center;
-  }
-  .timer-state{
-      color: #AD291D;
-      font-size: 48px;
-  }
-  .timer-label{
-      color: #61322E;
-  }
-  #inputs{
-    display: flex;
-  }
-  button{
-    border: 2px solid #AD291D;
-    background-color: #E03626;
-    color: #FA8075;
-    font-size: 1.1em;
-    font-weight: bold;
-    width: 25%;
-    margin: auto;
-    border-radius: 40%;
-  }
-  button:hover{
-    cursor: pointer;
-    background-color: #AD291D;
-  }
-  .btn-wrapper{
-    display: flex;
-    width: 100%;
-  }
-  
-  #break, #session{
-    margin: 1em;
-  }
-  
+
+.main-container{
+  display: flex;
+  width: 62.5rem;
+  height: 35.5625rem;
+  border-radius: 3.125rem;
+  background: #FFF;
+  box-shadow: 4px 4px 16px 2px #000;
+  margin: 4rem auto;
+}
+
+.button-container{
+  display: flex;
+  width: 20.3125rem;
+  height: 34.625rem;
+  border-radius: 3.125rem;
+  background: #dbdbe8;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-state{
+  display: flex;
+  width: 39.875rem;
+  height: 4.125rem;
+  flex-direction: column;
+  justify-content: center;
+  color: #474C66;
+  text-align: center;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+  letter-spacing: 0.375rem;
+}
+
+.time-left{
+  color: #474C66;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Ubuntu;
+  font-size: 10rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.3rem;
+  margin: 3rem 0;
+}
+
+.timer-button{
+  width: 4.375rem;
+  height: 3.125rem;
+  border-radius: 3.125rem;
+  background: #dbdbe8;
+  border: none;
+}
+
+.timer-button:hover{
+  cursor: pointer;
+  background-color: #e4e4ed;
+}
+
+.incdec-button{
+  width: 4.25rem;
+  height: 3.25rem;
+  color: #FFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background: none;
+  border: none;
+  margin: auto;
+}
+
+.incdec-button:hover{
+  cursor: pointer;
+  color: #474c669f;
+}
+
+.btn-wrapper{
+  display: flex;
+  width: 100%;
+  gap: 4.25rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.sb-wrapper{
+  display: flex;
+  flex-direction: column;
+  margin: 3rem;
+}
+
+.sb-header{
+  color: #474C66;
+  text-align: center;
+  font-family: Ubuntu;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.25rem;
+  margin: 0;
+}
+
+.sb-length{
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Ubuntu;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.375rem;
+  margin: 0;
+}
+
+i {
+  color: #474C66;
+}

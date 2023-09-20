@@ -20,22 +20,24 @@ const accurateInterval = function (fn, time) {
 };
 /*---end AccurateInterval.js---*/
 
+function formatTime(time) {
+  return time < 10 ? "0"+time+":00" : time+":00"
+}
+
 const Timer = ({ handleReset,
                  timeLeft,
                  handleStopStart,
                  timerState,
                  isRunning}) => {
   return (
-    <div className="timer">
+    <div>
       <h1 className="timer-state">{timerState}</h1>
-      <h2 className="timer-label">Time Left: <span className="time-val">{timeLeft}</span></h2>
+      <h2 className="time-left">{timeLeft}</h2>
       <div className="btn-wrapper">
-        <button  
-        onClick={handleStopStart}>
+        <button className="timer-button" onClick={handleStopStart}>
           {isRunning ? <i class="fa-solid fa-pause"></i> : <i class="fa-solid fa-play"></i>}
         </button>
-        <button 
-        onClick={handleReset}>
+        <button className="timer-button" onClick={handleReset}>
           <i class="fa-solid fa-rotate-right"></i>
         </button>
       </div>
@@ -50,37 +52,20 @@ const TimerInputs = ({ breakLength,
                        handleBreakInc,
                        handleBreakDec }) => {
   return(
-    <div className="timer">
-      <div id="inputs">
-        <div id="break">
-          <h2 className="timer-label">Break Length: {breakLength}</h2>
-          <div className="btn-wrapper">
-            <button 
-            onClick={handleBreakDec}>
-              <i class="fa-solid fa-arrow-down"></i>
-            </button>
-            <button 
-            onClick={handleBreakInc}>
-              <i class="fa-solid fa-arrow-up"></i>
-            </button>
-          </div>
-        </div>
-        <div id="session">
-          <h2 className="timer-label">Session Length: {sessionLength}</h2>
-          <div className="btn-wrapper">
-            <button 
-            onClick={handleSessionDec}>
-              <i class="fa-solid fa-arrow-down"></i>
-            </button>
-            <button
-            onClick={handleSessionInc}>
-              <i class="fa-solid fa-arrow-up"></i>
-            </button>
-          </div>
-        </div>
+    <div>
+      <div className="sb-wrapper">
+        <h2 className="sb-header">Session</h2>
+        <button className="incdec-button" onClick={handleSessionInc}>+</button>
+        <h2 className="sb-length">{formatTime(sessionLength)}</h2>
+        <button className="incdec-button" onClick={handleSessionDec}>-</button>
+      </div>
+      <div className="sb-wrapper">
+        <h2 className="sb-header">Break</h2>
+        <button className="incdec-button" onClick={handleBreakInc}>+</button>
+        <h2 className="sb-length">{formatTime(breakLength)}</h2>
+        <button className="incdec-button" onClick={handleBreakDec}>-</button>
       </div>
     </div>
-    
   )
 }
 
@@ -109,37 +94,45 @@ const App = () => {
   
   /*---functions---*/
   function handleSessionInc() {
-    if(sessionTime.length+1 <= 60){
-      setSessionTime({
-        length: sessionTime.length+1
-      })
-      setTimeLeft({
-        time: timeLeft.time+60
-      })
-    } 
+    if(!isRunning.status){
+      if(sessionTime.length+1 <= 60){
+        setSessionTime({
+          length: sessionTime.length+1
+        })
+        setTimeLeft({
+          time: timeLeft.time+60
+        })
+      } 
+    }
   }
   function handleSessionDec() {
-    if(sessionTime.length-1 > 0){
-      setSessionTime({
-        length: sessionTime.length-1
-      })
-      setTimeLeft({
-        time: timeLeft.time-60
-      })
+    if(!isRunning.status){
+      if(sessionTime.length-1 > 0){
+        setSessionTime({
+          length: sessionTime.length-1
+        })
+        setTimeLeft({
+          time: timeLeft.time-60
+        })
+      }
     }
   }
   function handleBreakInc() {
-    if(breakTime.length+1 <= 60){
-      setBreakTime({
-        length: breakTime.length+1
-      })
-    } 
+    if(!isRunning.status){
+      if(breakTime.length+1 <= 60){
+        setBreakTime({
+          length: breakTime.length+1
+        })
+      } 
+    }
   }
   function handleBreakDec() {
-     if(breakTime.length-1 > 0){
-      setBreakTime({
-        length: breakTime.length-1
-      })
+    if(!isRunning.status){
+      if(breakTime.length-1 > 0){
+       setBreakTime({
+         length: breakTime.length-1
+       })
+     }
     }
   }
   function handleReset() {
@@ -207,7 +200,6 @@ const App = () => {
     }))
   }
   function checkTimer(){
-    console.log(timeLeft.time)
     if(timeLeft.time < 0){
       if(cdInterval.interval){
         cdInterval.interval.cancel()
@@ -233,26 +225,31 @@ const App = () => {
   /*---end functions---*/
   return(
     <div className="app">
-      <h1 className="main-title">Session/Break Timer</h1>
-      <TimerInputs 
-        breakLength={breakTime.length}  
-        sessionLength={sessionTime.length} 
-        handleSessionInc={handleSessionInc}
-        handleSessionDec={handleSessionDec}
-        handleBreakInc={handleBreakInc}
-        handleBreakDec={handleBreakDec}
-      />
-      <Timer 
-        handleReset={handleReset} 
-        timeLeft={toMinutesSeconds()}
-        handleStopStart={handleStopStart}
-        timerState={timerState.status}
-        isRunning={isRunning.status}
-        />
-      <audio
-        id="beep"
-        src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
-        />
+      <div className="main-container">
+        <div className="button-container">
+          <TimerInputs 
+            breakLength={breakTime.length}  
+            sessionLength={sessionTime.length} 
+            handleSessionInc={handleSessionInc}
+            handleSessionDec={handleSessionDec}
+            handleBreakInc={handleBreakInc}
+            handleBreakDec={handleBreakDec}
+          />
+        </div>
+        <div>
+          <Timer 
+            handleReset={handleReset} 
+            timeLeft={toMinutesSeconds()}
+            handleStopStart={handleStopStart}
+            timerState={timerState.status}
+            isRunning={isRunning.status}
+          />
+          <audio
+          id="beep"
+          src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+          />
+        </div>
+      </div>
     </div>
   ) 
 }
